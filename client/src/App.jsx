@@ -67,11 +67,13 @@ export default function App() {
     <div className="min-h-screen bg-[var(--bg)] text-[var(--ink)]">
       <Navbar dark={dark} setDark={setDark} />
       <Hero scrollTo={scrollTo} />
-      <About />
-      <Projects />
-      <Experience />
-      <Certifications />
-      <Contact />
+      <div className="space-y-6">
+        <About />
+        <Projects />
+        <Experience />
+        <Certifications />
+        <Contact />
+      </div>
     </div>
   );
 }

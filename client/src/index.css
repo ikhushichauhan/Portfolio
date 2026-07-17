@@ -335,17 +335,9 @@ body {
   cursor: grabbing;
 }
 
-/* Subtle sphere boundary ring */
+/* Subtle sphere boundary ring - removed */
 .globe-sphere-ring {
-  position: absolute;
-  border-radius: 50%;
-  border: 1px solid rgba(139, 123, 255, 0.08);
-  background: radial-gradient(circle, rgba(139, 123, 255, 0.03) 0%, transparent 70%);
-  pointer-events: none;
-}
-.light .globe-sphere-ring {
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  background: radial-gradient(circle, rgba(111, 92, 240, 0.03) 0%, transparent 70%);
+  display: none;
 }
 
 /* Each logo item — absolutely centered, NO circular border */
@@ -422,9 +414,107 @@ body {
   border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
+/* Box styling for sections like reference portfolio */
+section:not(#home) {
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  margin: 16px 16px 24px 16px;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+/* Inner container padding */
+section:not(#home) > div {
+  padding: 32px 24px;
+}
+
+/* Main container spacing */
+.min-h-screen {
+  padding: 16px;
+}
+
+/* Project and Experience card boxes */
+.project-card-wrap,
+[data-stack-card] > div {
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 24px;
+  background: var(--surface);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
+}
+
+.project-card-wrap:hover,
+[data-stack-card] > div:hover {
+  border-color: var(--accent);
+  box-shadow: 0 8px 32px rgba(139, 123, 255, 0.1);
+}
+
+/* Experience card specific styling */
+[data-stack-card] > div.grid {
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 24px;
+  background: var(--surface);
+}
+
+/* Stacked card effect */
+[data-stack-card] {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Certification cards */
+.marquee-card {
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--surface);
+}
+
+/* Contact form and social cards */
+.hover-card {
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--surface);
+}
+
+/* Compact contact section */
+#contact .rounded-2xl {
+  min-height: 500px;
+}
+
+#contact .grid {
+  height: 100%;
+}
+
+/* Social link cards in contact */
+#contact a.flex.items-center.gap-4 {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#contact a.flex.items-center.gap-4:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(139, 123, 255, 0.1);
+}
+
+/* Hero section special styling */
+#home {
+  border: none;
+  margin: 0;
+  border-radius: 0;
+}
+
 /* Reduced motion: stop auto-rotation visual hint */
 @media (prefers-reduced-motion: reduce) {
   .tech-globe-container {
     /* Items will still be positioned by JS, just no auto-spin */
+  }
+  [data-stack-card] {
+    opacity: 1 !important;
+    transform: none !important;
+    will-change: auto;
   }
 }

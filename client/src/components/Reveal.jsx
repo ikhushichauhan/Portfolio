@@ -448,9 +448,9 @@ export function StaggerReveal({
 
 /**
  * StackedCardScroll — Each card gets its OWN ScrollTrigger.
- * As you scroll, each card rises from 180px below with full stagger.
+ * As you scroll, each card rises from 200px below with full stagger.
  * When the next card enters, the previous card scales down slightly
- * and pushes upward — creating the stacked-card parallax effect.
+ * and moves upward — creating the stacked-card scroll effect.
  *
  * Each card animates individually so it reverses perfectly on scroll-up.
  */
@@ -470,30 +470,30 @@ export function StackedCardScroll({ children, className = "" }) {
 
     const ctx = gsap.context(() => {
       cards.forEach((card, i) => {
-        // Initial state: far below, slightly scaled down, invisible
-        gsap.set(card, { opacity: 0, y: 180, scale: 0.88 });
+        // Initial state: far below (200px), slightly scaled down, invisible
+        gsap.set(card, { opacity: 0, y: 200, scale: 0.9 });
 
         // Each card has its own ScrollTrigger
         ScrollTrigger.create({
           trigger: card,
-          start: "top 95%",
-          end: "top 20%",
+          start: "top 90%",
+          end: "top 15%",
           onEnter: () => {
-            // Animate this card in — rise from below
+            // Animate this card in — strong rise from below
             gsap.to(card, {
               opacity: 1,
               y: 0,
               scale: 1,
-              duration: 1,
+              duration: 1.2,
               ease: "power3.out",
               overwrite: true,
             });
-            // Scale down previous card to create stacking illusion
+            // Scale down previous card and move it upward for stacking effect
             if (i > 0 && cards[i - 1]) {
               gsap.to(cards[i - 1], {
-                scale: 0.95,
-                y: -30,
-                duration: 0.8,
+                scale: 0.92,
+                y: -40,
+                duration: 0.9,
                 ease: "power2.out",
                 overwrite: true,
               });
@@ -503,9 +503,9 @@ export function StackedCardScroll({ children, className = "" }) {
             // Card goes back to hidden (scroll back up)
             gsap.to(card, {
               opacity: 0,
-              y: 180,
-              scale: 0.88,
-              duration: 0.7,
+              y: 200,
+              scale: 0.9,
+              duration: 0.8,
               ease: "power2.in",
               overwrite: true,
             });
@@ -514,18 +514,18 @@ export function StackedCardScroll({ children, className = "" }) {
               gsap.to(cards[i - 1], {
                 scale: 1,
                 y: 0,
-                duration: 0.7,
+                duration: 0.8,
                 ease: "power2.out",
                 overwrite: true,
               });
             }
           },
           onLeave: () => {
-            // Keep card visible but scale it down when it leaves top
+            // Keep card visible but scale it down and move up when it leaves top
             gsap.to(card, {
-              scale: 0.92,
-              y: -20,
-              duration: 0.6,
+              scale: 0.88,
+              y: -50,
+              duration: 0.7,
               ease: "power2.in",
               overwrite: true,
             });
@@ -536,7 +536,7 @@ export function StackedCardScroll({ children, className = "" }) {
               opacity: 1,
               y: 0,
               scale: 1,
-              duration: 0.8,
+              duration: 1,
               ease: "power3.out",
               overwrite: true,
             });
@@ -544,9 +544,9 @@ export function StackedCardScroll({ children, className = "" }) {
             if (i < cards.length - 1 && cards[i + 1]) {
               gsap.to(cards[i + 1], {
                 opacity: 0,
-                y: 180,
-                scale: 0.88,
-                duration: 0.6,
+                y: 200,
+                scale: 0.9,
+                duration: 0.7,
                 ease: "power2.in",
                 overwrite: true,
               });

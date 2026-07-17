@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Sparkles } from "lucide-react";
 import { Button } from "./ui/button";
+import { SplitTextReveal } from "./Reveal";
 import gsap from "gsap";
 
 function TypingRole() {
@@ -77,32 +78,46 @@ export function Hero({ scrollTo }) {
 
   return (
     <section id="home" ref={sectionRef} className="relative min-h-screen flex items-center overflow-hidden px-6 md:px-10">
-      <div className="max-w-6xl mx-auto w-full relative z-10 pt-24 flex flex-col-reverse md:flex-row items-center md:items-center gap-6 md:gap-10">
+      <div className="max-w-6xl mx-auto w-full relative z-10 pt-16 flex flex-col-reverse md:flex-row items-center md:items-center gap-6 md:gap-10">
 
         {/* Left — text content */}
         <div className="flex-1 text-center md:text-left">
           <div data-hero-item>
-            <h1 className="font-display font-bold tracking-tight leading-[0.9] text-[11vw] md:text-[6rem] lg:text-[5rem] text-[var(--ink)]">
+            <SplitTextReveal
+              as="h1"
+              className="font-display font-bold tracking-tight leading-[0.9] text-[11vw] md:text-[6rem] lg:text-[5rem] text-[var(--ink)]"
+              stagger={0.05}
+              y={40}
+              duration={0.8}
+              delay={0.1}
+            >
               Khushi Chauhan
-            </h1>
+            </SplitTextReveal>
           </div>
 
           <div data-hero-item>
-            <div className="mt-6 text-2xl md:text-4xl text-[var(--mute)] font-display">
+            <div className="mt-4 text-2xl md:text-4xl text-[var(--mute)] font-display">
               I'm a <span className="text-[var(--ink)] font-semibold"><TypingRole /></span>
             </div>
           </div>
 
           <div data-hero-item>
-            <p className="mt-6 max-w-xl text-[15px] leading-relaxed text-[var(--mute)] mx-auto md:mx-0">
+            <SplitTextReveal
+              as="p"
+              className="mt-4 max-w-xl text-[15px] leading-relaxed text-[var(--mute)] mx-auto md:mx-0"
+              stagger={0.02}
+              y={25}
+              duration={0.6}
+              delay={0.3}
+            >
               Currently building toward an <span className="text-[var(--accent)]">AI Engineer</span> future
               learning to design and ship AI agents, while working daily across the MERN stack
               and data analytics (SQL, Power BI and Python).
-            </p>
+            </SplitTextReveal>
           </div>
 
           <div data-hero-item>
-            <div className="mt-10 flex flex-wrap gap-4 justify-center md:justify-start">
+            <div className="mt-6 flex flex-wrap gap-3 justify-center md:justify-start">
               <Button onClick={() => scrollTo("projects")} variant="solid" size="lg">
                 View Projects
               </Button>
@@ -121,7 +136,7 @@ export function Hero({ scrollTo }) {
             <img
               src="/images/khushi.jpeg"
               alt="Khushi Chauhan"
-              className="relative w-48 md:w-72 lg:w-80 rounded-2xl object-cover shadow-[0_0_30px_rgba(255,255,255,0.25),0_0_60px_rgba(255,255,255,0.1)]"
+              className="relative w-48 md:w-72 lg:w-80 rounded-2xl object-cover shadow-[0_0_30px_rgba(255,255,255,0.25),0_0_60px_rgba(255,255,255,0.1)] mt-[-40px] md:mt-[-60px]"
             />
           </div>
         </div>

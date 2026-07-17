@@ -56,7 +56,7 @@ export function TechGlobe({ size = 420 }) {
   const animRef = useRef(null);
   const pointsRef = useRef(fibonacciSphere(TECH_ITEMS.length));
   const rotationRef = useRef({ x: -0.25, y: 0 }); // slight tilt for 3D depth
-  const velocityRef = useRef({ x: 0, y: 0.003 }); // continuous left-to-right rotation
+  const velocityRef = useRef({ x: 0, y: 0.0015 }); // continuous left-to-right rotation (smooth)
   const draggingRef = useRef(false);
   const lastPosRef = useRef({ x: 0, y: 0 });
   const [tooltip, setTooltip] = useState({ visible: false, name: "", x: 0, y: 0 });
@@ -93,8 +93,8 @@ export function TechGlobe({ size = 420 }) {
         rot.x += vel.x;
         // Dampen x velocity toward 0 (auto-rotate is only Y for left-to-right)
         vel.x *= 0.96;
-        // Gently restore Y velocity to auto-rotate speed
-        vel.y += (0.003 - vel.y) * 0.01;
+        // Gently restore Y velocity to auto-rotate speed (left-to-right)
+        vel.y += (0.0015 - vel.y) * 0.01;
       }
 
       const points = pointsRef.current;
@@ -105,10 +105,10 @@ export function TechGlobe({ size = 420 }) {
         const zNorm = (p.z + 1) / 2; // 0 (back) → 1 (front)
 
         // ── FRONT vs BACK differentiation ──
-        // Front items: full size & opacity. Back items: smaller, faded
-        const scale = 0.5 + 0.5 * zNorm;           // 0.5 → 1.0
-        const opacity = 0.15 + 0.85 * zNorm;       // 0.15 (very faded back) → 1.0 (full front)
-        const blur = zNorm < 0.3 ? (0.3 - zNorm) * 3 : 0; // subtle blur for far back items
+        // Front items: full size. Back items: slightly smaller but NOT faded
+        const scale = 0.7 + 0.3 * zNorm;           // 0.7 → 1.0 (subtle size contrast)
+        const opacity = 1;                         // ALL items fully visible, no fading
+        const blur = 0;                            // No blur for any items
         const zIndex = Math.round(zNorm * 100);
 
         const px = p.x * radius;

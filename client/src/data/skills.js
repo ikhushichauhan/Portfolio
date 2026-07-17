@@ -51,4 +51,5 @@ export const socials = {
   email: "mailto:khushichauhan9850@gmail.com",
   linkedin: "https://www.linkedin.com/in/khushi-chauhan09/",
   github: "https://github.com/ikhushichauhan",
+  leetcode: "https://leetcode.com/u/ikhushichauhan/",
 };

@@ -1,32 +1,24 @@
 import React from "react";
 import { ArrowUpRight } from "lucide-react";
-import { Reveal, StaggerReveal } from "./Reveal";
+import { Reveal, SplitTextReveal, StackedCardScroll } from "./Reveal";
 import { ImageSlot } from "./ImageSlot";
 import { projects } from "@/data/projects";
 
 export function Projects() {
   return (
-    <section id="projects" className="px-6 md:px-10 py-16 border-t border-[var(--line)]">
+    <section id="projects" className="px-6 md:px-10 py-16">
       <div className="max-w-6xl mx-auto">
         <Reveal>
-          <p className="text-[11px] uppercase tracking-[0.2em] mb-4 text-[var(--accent)]">Selected Work</p>
+          <p className="text-[11px] uppercase tracking-[0.2em] mb-2 text-[var(--accent)]">Selected Work</p>
         </Reveal>
         <Reveal delay={0.05}>
-          <h2 className="text-3xl md:text-5xl mb-16 font-display font-semibold">Projects</h2>
+          <h2 className="text-3xl md:text-5xl mb-6 font-display font-semibold">Projects</h2>
         </Reveal>
 
-        <StaggerReveal
-          selector="[data-stagger-item]"
-          staggerDelay={0.22}
-          duration={0.9}
-          y={120}
-          scaleFrom={0.92}
-          start="top 92%"
-          className="flex flex-col gap-20"
-        >
+        <StackedCardScroll className="flex flex-col gap-10">
           {projects.map((p, i) => (
-            <div key={p.title} data-stagger-item style={{ opacity: 0 }}>
-              <div className={`project-card-wrap grid md:grid-cols-2 gap-8 items-center ${i % 2 ? "md:[direction:rtl]" : ""}`}>
+            <div key={p.title} data-stack-card style={{ opacity: 0 }}>
+              <div className={`project-card-wrap grid md:grid-cols-2 gap-6 items-center ${i % 2 ? "md:[direction:rtl]" : ""}`}>
                 <div style={{ direction: "ltr" }} className="project-image-wrap">
                   <ImageSlot
                     src={p.image}
@@ -35,10 +27,28 @@ export function Projects() {
                   />
                 </div>
                 <div style={{ direction: "ltr" }}>
-                  <span className="text-xs tracking-widest text-[var(--mute)]">{p.tag}</span>
-                  <h3 className="text-2xl md:text-3xl mt-2 mb-4 font-display font-semibold">{p.title}</h3>
-                  <p className="text-[14px] leading-relaxed mb-5 text-[var(--mute)]">{p.desc}</p>
-                  <div className="flex flex-wrap gap-2 mb-6">
+
+                  <SplitTextReveal
+                    as="h3"
+                    className="text-2xl md:text-3xl mb-4 font-display font-semibold"
+                    stagger={0.03}
+                    y={30}
+                    duration={0.7}
+                    delay={0.1}
+                  >
+                    {p.title}
+                  </SplitTextReveal>
+                  <SplitTextReveal
+                    as="p"
+                    className="text-[14px] leading-relaxed mb-5 text-[var(--mute)]"
+                    stagger={0.02}
+                    y={20}
+                    duration={0.6}
+                    delay={0.2}
+                  >
+                    {p.desc}
+                  </SplitTextReveal>
+                  <div className="flex flex-wrap gap-2 mb-5">
                     {p.stack.map((s) => (
                       <span
                         key={s}
@@ -60,7 +70,7 @@ export function Projects() {
               </div>
             </div>
           ))}
-        </StaggerReveal>
+        </StackedCardScroll>
       </div>
     </section>
   );

@@ -2,7 +2,6 @@
 // image: put your screenshot inside /public/images/projects/ and reference it as "/images/projects/filename.png"
 export const projects = [
   {
-    tag: "01",
     title: "MattersUrSkill",
     desc: "MERN-stack mini project connecting students, housewives & unemployed individuals with genuine home-based and local-service work — removing middlemen through a trusted, skill-first platform.",
     stack: ["React", "Node.js", "Express", "MongoDB", "JWT", "OTP"],
@@ -11,7 +10,6 @@ export const projects = [
     image: "/images/projects/mattersurskill.png", // <-- replace with your screenshot
   },
   {
-    tag: "02",
     title: "GeoForge AI — Urban Heat Mitigation",
     desc: "AI + geospatial framework built for Bharatiya Antariksh Hackathon 2026 (ISRO) — detects Urban Heat Island hotspots using satellite imagery, GIS layers and XGBoost, explained via SHAP.",
     stack: ["Python", "Google Earth Engine", "GeoPandas", "XGBoost", "SHAP"],
@@ -20,7 +18,6 @@ export const projects = [
     image: "/images/projects/geoforge-ai.png",
   },
   {
-    tag: "03",
     title: "Universities Ecosystem Platform",
     desc: "An independent student ecosystem: transparent complaint tracking, teacher & subject feedback, lost-and-found registry, a skill-development hub and vendor ratings — built to fix slow, ignored grievance systems.",
     stack: ["MERN", "React", "Express", "MongoDB"],
@@ -29,7 +26,6 @@ export const projects = [
     image: "/images/projects/universities-ecosystem.png",
   },
   {
-    tag: "04",
     title: "Fashion Data Analysis",
     desc: "Exploratory data analysis on a synthetic fashion dataset — cleaning, price-range categorisation and visualisation of pricing & category trends.",
     stack: ["Python", "Pandas", "NumPy", "Seaborn", "Matplotlib"],
