@@ -1,0 +1,430 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #0a0a0c;
+  --surface: #131316;
+  --surface-2: #17171b;
+  --line: #232327;
+  --ink: #f3f3f1;
+  --mute: #ffffff;
+  --accent: #8b7bff;      /* violet — sole accent colour */
+  --accent-soft: #b6acff; /* lighter violet for hovers */
+}
+
+.light {
+  --bg: #f4f4f2;
+  --surface: #ffffff;
+  --surface-2: #fafafa;
+  --line: #e4e4e1;
+  --ink: #141414;
+  --mute: #000000;
+  --accent: #6f5cf0;
+  --accent-soft: #8b7bff;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Inter", sans-serif;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+.font-display {
+  font-family: "Space Grotesk", sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 999px;
+}
+
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  height: 1px;
+  width: 0%;
+  background: currentColor;
+  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+.hover-card {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.4s ease;
+}
+.hover-card:hover {
+  transform: translateY(-6px);
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+.caret {
+  animation: blink 1s step-end infinite;
+}
+
+/* Hero profile image glow */
+@keyframes glowPulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.08;
+    transform: scale(0.97);
+  }
+}
+
+.hero-glow {
+  animation: glowPulse 3s ease-in-out infinite;
+  transition: opacity 0.5s ease, transform 0.5s ease, filter 0.5s ease;
+}
+
+.hero-img-wrap:hover .hero-glow {
+  animation: none;
+  opacity: 0.6;
+  transform: scale(1.3);
+  filter: blur(30px);
+}
+
+.hero-img-wrap img {
+  transition: transform 0.4s ease;
+}
+
+.hero-img-wrap:hover img {
+  transform: scale(1.03);
+}
+
+/* ─── GPU-accelerated scroll animations ─────────────── */
+/* Hint the compositor to promote animated elements to their
+   own layer for 60fps transform + opacity animations.
+   GSAP sets will-change dynamically, but this covers
+   the initial paint before JS runs. */
+[data-stagger-item],
+[data-hero-item] {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* ─── Accessibility: respect reduced motion ─────────── */
+@media (prefers-reduced-motion: reduce) {
+  [data-stagger-item],
+  [data-hero-item] {
+    opacity: 1 !important;
+    transform: none !important;
+    will-change: auto;
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ─── Skill cards — premium design ───────────────────── */
+.skill-card {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.4s ease,
+              box-shadow 0.4s ease;
+}
+.skill-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent);
+  box-shadow: 0 8px 30px rgba(139, 123, 255, 0.12),
+              0 0 0 1px rgba(139, 123, 255, 0.15);
+}
+
+/* Radial gradient glow that fades in on card hover */
+.skill-card-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  background: radial-gradient(circle at 30% 20%, rgba(139, 123, 255, 0.08) 0%, transparent 60%);
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.skill-card:hover .skill-card-glow {
+  opacity: 1;
+}
+
+/* Logo grid */
+.skill-logo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));
+  gap: 12px;
+}
+
+.skill-logo-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Glassmorphic bubble behind each logo */
+.skill-logo-bubble {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.3s ease,
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
+}
+.skill-logo-item:hover .skill-logo-bubble {
+  transform: scale(1.15);
+  border-color: var(--accent);
+  background: rgba(139, 123, 255, 0.08);
+  box-shadow: 0 0 14px rgba(139, 123, 255, 0.25);
+}
+
+.skill-logo-img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* In dark mode, invert logos that ship as black-on-transparent */
+:root .skill-logo-img[alt="GitHub"],
+:root .skill-logo-img[alt="Express"] {
+  filter: invert(1);
+}
+.light .skill-logo-img[alt="GitHub"],
+.light .skill-logo-img[alt="Express"] {
+  filter: none;
+}
+
+.skill-logo-name {
+  font-size: 9px;
+  line-height: 1.2;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 60px;
+  color: var(--mute);
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+.skill-logo-item:hover .skill-logo-name {
+  opacity: 1;
+}
+
+/* ─── Certifications marquee ─────────────────────────── */
+@keyframes marqueeScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-wrapper {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 24px;
+  animation: marqueeScroll 45s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* marquee never pauses — keeps scrolling on hover/click */
+
+.marquee-card {
+  flex-shrink: 0;
+  width: 300px;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.marquee-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 14px 36px rgba(139, 123, 255, 0.18),
+              0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Reduced motion: disable marquee + card lift */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none !important;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .marquee-card:hover {
+    transform: none;
+  }
+}
+
+/* ─── About section — split layout ──────────────────── */
+.about-split {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  margin-top: 0.5rem;
+}
+
+.about-text {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.about-globe-wrap {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+/* Stack vertically on smaller screens */
+@media (max-width: 900px) {
+  .about-split {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .about-globe-wrap {
+    order: -1; /* Globe on top on mobile */
+  }
+}
+
+/* ─── 3D Tech Globe ─────────────────────────────────── */
+.tech-globe-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.tech-globe-container:active {
+  cursor: grabbing;
+}
+
+/* Subtle sphere boundary ring */
+.globe-sphere-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(139, 123, 255, 0.08);
+  background: radial-gradient(circle, rgba(139, 123, 255, 0.03) 0%, transparent 70%);
+  pointer-events: none;
+}
+.light .globe-sphere-ring {
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  background: radial-gradient(circle, rgba(111, 92, 240, 0.03) 0%, transparent 70%);
+}
+
+/* Each logo item — absolutely centered, NO circular border */
+.globe-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 48px;
+  height: 48px;
+  margin-left: -24px;
+  margin-top: -24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform, opacity, filter;
+  pointer-events: auto;
+  /* No border, no border-radius, no background — natural icon shape */
+  background: none;
+  border: none;
+  border-radius: 0;
+}
+
+/* The logo image — uses drop-shadow for a natural shape glow */
+.globe-logo {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.25));
+  transition: transform 0.2s ease, filter 0.2s ease;
+  pointer-events: none;
+}
+
+.globe-item:hover .globe-logo {
+  transform: scale(1.25);
+  filter: drop-shadow(0 0 10px rgba(139, 123, 255, 0.5))
+         drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+/* Invert dark-only logos (Express, GitHub ship as black SVGs) */
+:root .globe-logo-invert {
+  filter: invert(1) drop-shadow(0 1px 4px rgba(0, 0, 0, 0.25));
+}
+:root .globe-item:hover .globe-logo-invert {
+  filter: invert(1) drop-shadow(0 0 10px rgba(139, 123, 255, 0.5))
+                    drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+.light .globe-logo-invert {
+  filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.25));
+}
+
+/* Tooltip — follows cursor, themed text */
+.globe-tooltip {
+  position: absolute;
+  pointer-events: none;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  z-index: 999;
+  transform: translateX(-50%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  /* Dark theme: white text */
+  color: #ffffff;
+  background: rgba(20, 20, 24, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+/* Light theme: black text */
+.light .globe-tooltip {
+  color: #141414;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Reduced motion: stop auto-rotation visual hint */
+@media (prefers-reduced-motion: reduce) {
+  .tech-globe-container {
+    /* Items will still be positioned by JS, just no auto-spin */
+  }
+}
