@@ -113,7 +113,7 @@ export function Contact() {
                 {/* Download Resume Button after LeetCode */}
                 <div data-stagger-item style={{ opacity: 0 }}>
                   <a
-                    href="/Resume.pdf"
+                    href="/images/Resume.pdf"
                     download="Khushi_Chauhan_Resume.pdf"
                     className="flex items-center gap-3 p-2 rounded-xl border border-[var(--line)] hover:border-[var(--accent)] hover:bg-[var(--surface-2)] transition-all duration-300"
                   >
