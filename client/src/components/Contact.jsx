@@ -59,7 +59,7 @@ export function Contact() {
           duration={0.8}
           delay={0.1}
         >
-          Caught a spark?
+          The Next Move is
         </SplitTextReveal>
         <SplitTextReveal
           as="h2"
@@ -69,7 +69,7 @@ export function Contact() {
           duration={0.8}
           delay={0.2}
         >
-          Your move.
+          Yours...
         </SplitTextReveal>
 
         {/* Single box containing both contact info and form */}
